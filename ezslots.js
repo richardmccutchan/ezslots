@@ -2,7 +2,7 @@ function EZSlots(id,useroptions){
 	var that = this; //keep reference to function for use in callbacks
 	//set some variables from the options, or with defaults.
 	var options = useroptions ? useroptions : {};
-	this.reelCount = options.reelCount ? options.reelCount : 3; //how many reels, assume 3 
+	this.reelCount = options.reelCount ? options.reelCount : 3; //how many reels, assume 3
 	this.symbols = options.symbols ? options.symbols : ['A','B','C'];
 	this.sameSymbolsEachSlot = true;
 	this.startingSet = options.startingSet;
@@ -12,7 +12,7 @@ function EZSlots(id,useroptions){
 	this.howManySymbolsToAppend = 20; //how many symbols each spin adds
 	this.endingLocation = 7; //location for selected symbol... needs to be a few smaller than howManySymbolsToAppend
 	this.time = 6500; //time in millis for a spin to take
-	this.jqo = $("#"+id); //jquery object reference to main wrapper
+	this.jqo = $("."+id); //jquery object reference to main wrapper
 	this.jqoSliders = []; //jquery object reference to strips sliding up and down
 	this.callback = options.callback; //callback function to be called once slots animation is finished
 
@@ -20,7 +20,7 @@ function EZSlots(id,useroptions){
 	//and then populate each strip once
 	this.init = function(){
 		this.jqo.addClass("ezslots"); //to get the css goodness
-		//figure out if we are using the same of symbols for each window - assume if the first 
+		//figure out if we are using the same of symbols for each window - assume if the first
 		//entry of the symbols is not a string we have an array of arrays
 		if(typeof this.symbols[0] != 'string'){
 			this.sameSymbolsEachSlot = false;
@@ -32,7 +32,7 @@ function EZSlots(id,useroptions){
 			this.scaleJqo(jqoWindow).append(jqoSlider); //make window right size and put slider in it
 			this.jqo.append(jqoWindow); //add window to main div
 			this.jqoSliders.push(jqoSlider); //keep reference to jqo of slider
-			this.addSymbolsToStrip(jqoSlider,i, false, true); //and add the initial set 
+			this.addSymbolsToStrip(jqoSlider,i, false, true); //and add the initial set
 		}
 	};
 	//convenience function since we need to apply width and height to multiple parts
@@ -61,7 +61,7 @@ function EZSlots(id,useroptions){
 	}
 	//to spin, we add symbols to a strip, and then bounce it down
 	this.spinOne = function(jqoSlider,whichReel,shouldWin){
-		var heightBefore = parseInt(jqoSlider.css("height"), 10); 
+		var heightBefore = parseInt(jqoSlider.css("height"), 10);
 		var chosen = that.addSymbolsToStrip(jqoSlider,whichReel,shouldWin);
 		var marginTop = -(heightBefore + ((that.endingLocation) * that.height));
 		jqoSlider.stop(true,true).animate(
@@ -77,8 +77,8 @@ function EZSlots(id,useroptions){
 			}
 
 		if(that.callback) {
-			setTimeout(function(){ 
-					that.callback(results); 
+			setTimeout(function(){
+					that.callback(results);
 				}, that.time);
 		}
 
@@ -95,5 +95,3 @@ function EZSlots(id,useroptions){
 		}
 	}
 }
-
-
